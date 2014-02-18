@@ -12,7 +12,7 @@ The module provides a formatter for *Field collection* fields called **Field col
 
 When using this formatter, a hook is called just before rendering each item in the field collection, allowing your theme or module to alter:
 
-* The display mode used for the item (Full, Teaser etc)
+* The view mode used for the item (Full, Teaser etc)
 * Classes for the item
 * Theme wrappers for the item
 

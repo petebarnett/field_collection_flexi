@@ -27,7 +27,7 @@ function hook_field_collection_flexi_view_mode_alter(&$view_mode, &$classes, $co
       $classes[] = $context['delta'] % 2 ? 'even' : 'odd';
 
       // Change the view mode for the first item in the collection only
-      if ($delta == 0) {
+      if ($context['delta'] == 0) {
         $view_mode = 'aweseome_view_mode';
       }
       break;

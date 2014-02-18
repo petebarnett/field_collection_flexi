@@ -1,0 +1,5 @@
+name = Field Collection Flexi
+description = Adds a formatter for more flexible display of Field Collection items
+core = 7.x
+
+dependencies[] = field_collection

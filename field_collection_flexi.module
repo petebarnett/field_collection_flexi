@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function field_collection_flexi_field_formatter_info() {
+  return array(
+    'field_collection_flexi' => array(
+      'label' => t('Field collection flexi'),
+      'field types' => array('field_collection'),
+      'settings' =>  array(),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function field_collection_flexi_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  $settings = $display['settings'];
+
+  switch ($display['type']) {
+    case 'field_collection_flexi':
+
+      foreach ($items as $delta => $item) {
+
+        if ($field_collection_item = field_collection_field_get_entity($item)) {
+          $view_mode = 'full';
+          $classes = array();
+
+          // Give modules a chance to alter the $view_mode. Use $view_mode by ref.
+          $theme_wrapper = 'field_collection_view';
+
+          $context = array(
+            'theme_wrapper' => &$theme_wrapper,
+            'host_entity' => clone $entity,
+            'field_collection' => clone $field_collection_item,
+            'field_name' => $field['field_name'],
+            'delta' => $delta
+          );
+
+          drupal_alter('field_collection_flexi_view_mode', $view_mode, $classes, $context);
+          $element[$delta]['entity'] = $field_collection_item->view($view_mode);
+          $element[$delta]['#attributes']['class'] = $classes;
+          $element[$delta]['#theme_wrappers'] = array($theme_wrapper);
+        }
+      }
+    break;
+  }
+
+  return $element;
+}
